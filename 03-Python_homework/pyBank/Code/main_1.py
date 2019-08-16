@@ -1,4 +1,4 @@
-#This code uses Lambda Function
+# @Note this code is without using Lambda
 
 
 # Import Dependencies
@@ -19,6 +19,9 @@ gain_loss_next = 0.00
 profitChange = 0.00
 # holds the average change for the entire period
 averageChange = 0.00
+# List to hold the average profit change
+profit_loss_List = []
+month_name_List = []
 
 
 
@@ -76,10 +79,14 @@ with open(budgetData_csv_path, newline="") as csvfile:
     #first summing up all the changes over each month
     for row in range(0,len(budgetList)):
         profitChange += budgetList[row][2]
+        #Processing
+        month_name_List.append(budgetList[row][0])
+        profit_loss_List.append(budgetList[row][2])
 
-  
+
     #Finding the Average change over the entire period
     averageChange = profitChange/(len(budgetList)-1)
+
 
     #Prints for Debug..
     #print(f'The no of months ... {len(budgetList)}')
@@ -91,8 +98,21 @@ with open(budgetData_csv_path, newline="") as csvfile:
     print("File read done")
    
 
+print(month_name_List)
+print(profit_loss_List)
+
+maxChange = max(profit_loss_List)
+maxIndex = profit_loss_List.index(maxChange)
+max_month_Name = month_name_List[maxIndex]
+print(f"{maxIndex} {maxChange} {max_month_Name}")
+
+minChange = min(profit_loss_List)
+minIndex = profit_loss_List.index(minChange)
+min_month_Name = month_name_List[minIndex]
+print(f"{minIndex} {minChange} {min_month_Name}")
+
 # Specify the file to write to
-output_path = os.path.join("..", "output", "budgetReview.txt")
+output_path = os.path.join("..", "output", "budgetReview2.txt")
 
 # Open the file using "write" mode. Specify the variable to hold the contents
 with open(output_path, 'w') as datafile:
@@ -115,9 +135,9 @@ with open(output_path, 'w') as datafile:
     #Retireving the row(or List) from the budgetList which has Min Profit/Loss Change
     minVal = min(budgetList, key=lambda item: item[2])
 
-    datafile.write(f"Greatest Increase in Profits:  {maxVal[0]}  (${maxVal[2]}) \n")
+    datafile.write(f"Greatest Increase in Profits:  {max_month_Name}  (${maxChange}) \n")
     datafile.write(f"\n")    
-    datafile.write(f"Greatest Decrease in Profits:  {minVal[0]}  (${minVal[2]}) \n")
+    datafile.write(f"Greatest Decrease in Profits:  {min_month_Name}  (${minChange}) \n")
     
     print("File write done")
 
