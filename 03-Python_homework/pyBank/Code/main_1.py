@@ -19,7 +19,8 @@ gain_loss_next = 0.00
 profitChange = 0.00
 # holds the average change for the entire period
 averageChange = 0.00
-# List to hold the average profit change
+# List to hold the average profit change and Month Name
+# will be used later for finding max and min averages and months
 profit_loss_List = []
 month_name_List = []
 
@@ -79,7 +80,7 @@ with open(budgetData_csv_path, newline="") as csvfile:
     #first summing up all the changes over each month
     for row in range(0,len(budgetList)):
         profitChange += budgetList[row][2]
-        #Processing
+        #Processing for Max and Min
         month_name_List.append(budgetList[row][0])
         profit_loss_List.append(budgetList[row][2])
 
@@ -87,29 +88,21 @@ with open(budgetData_csv_path, newline="") as csvfile:
     #Finding the Average change over the entire period
     averageChange = profitChange/(len(budgetList)-1)
 
-
-    #Prints for Debug..
-    #print(f'The no of months ... {len(budgetList)}')
-    #print(f'the AVERAGE CHANGE IS .. {value}')
-
-    #print(f'this is the MAX VALUE.... {max(budgetList, key=lambda item: item[2])}')
-    #print(f'this is the MIN VALUE.... {min(budgetList, key=lambda item: item[2])}')
-
     print("File read done")
    
-
-print(month_name_List)
-print(profit_loss_List)
+#Processing and obtaining the min and max average change and the month name respectively
+#print(month_name_List)
+#print(profit_loss_List)
 
 maxChange = max(profit_loss_List)
 maxIndex = profit_loss_List.index(maxChange)
 max_month_Name = month_name_List[maxIndex]
-print(f"{maxIndex} {maxChange} {max_month_Name}")
+#print(f"{maxChange} {max_month_Name}")
 
 minChange = min(profit_loss_List)
 minIndex = profit_loss_List.index(minChange)
 min_month_Name = month_name_List[minIndex]
-print(f"{minIndex} {minChange} {min_month_Name}")
+#print(f"{minChange} {min_month_Name}")
 
 # Specify the file to write to
 output_path = os.path.join("..", "output", "budgetReview2.txt")
