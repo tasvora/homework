@@ -1,8 +1,0 @@
-{
-  "database": "emp_dept_db",
-  "schema": "schema_name",
-  "user": "postgres",
-  "host": "localhost",
-  "port": "5342",
-  "passw": "********"
-}
