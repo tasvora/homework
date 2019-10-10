@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Flask Tutorial</title>
+  </head>
+  <body>
+    <h1> Available Routes: </h1>
+    <ul>
+        <li>View Precipitation Results </li>
+        <a href="/api/v1.0/precipitation">/api/v1.0/precipitation</a>
+        <br/>
+        <br/>
+        <li>View List of all Stations</li>
+        <a href="/api/v1.0/stations">/api/v1.0/stations</a>
+        <br/>
+        <br/>
+        <li>View the dates and temperature observations from a year from the last data point</li>
+        <a href="/api/v1.0/tobs">/api/v1.0/tobs</a>
+        <br/>  
+        <br/>      
+        <li>Min temp, Avg temp, and Max temp for Specified Start Date</li>
+        <a href="/api/v1.0/2012-02-28">/api/v1.0/&lt;start&gt;</a> <strong> --- Replace &lt;start&gt; with a date "YYYY-MM-DD"</strong>
+        <br/>  
+        <br/>
+        <li>Min temp, Avg temp, and Max temp for Date Range</li>
+        <a href="/api/v1.0/2012-02-28/2012-03-05">/api/v1.0/&lt;start&gt;/&lt;end&gt;</a> <strong> -- Replace &lt;start&gt; and &lt;end&gt; with a date "YYYY-MM-DD"</strong>      
+        <br/>          
+    </ul>
+  </body>
+</html>
