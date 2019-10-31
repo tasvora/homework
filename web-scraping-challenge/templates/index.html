@@ -21,24 +21,24 @@
       <h3>{{planet_data.news_title }}</h3>
       <p> {{planet_data.news_summary }}</p>
     </div>
-    <div class="container">
+    <div>
       <div class="row">
         <div class="col-lg-8">
           <h2>Featured Mars Image</h2>
-          <img src="{{ planet_data.featured_img }}" alt="{{ planet_data.featured_img }}">
+          <img class="img-fluid" src="{{ planet_data.featured_img }}" alt="{{ planet_data.featured_img }}">
         </div>
         <div class="col-lg-4">
           <div class="card">
             <div class="card-body">
-          <h3 class="card-title">Current Weather on Mars</h3>
-          <p class="card-text">{{ planet_data.marsWeather }}</p>
-          </br>
-        </div>
-        </div>
+              <h3 class="card-title">Current Weather on Mars</h3>
+              <p class="card-text">{{ planet_data.marsWeather }}</p>
+              </br>
+            </div>
+          </div>
           <div>
-          <h3>Mars Facts</h3>
-          {{planet_data.Facts | safe}}
-        </div>
+            <h3>Mars Facts</h3>
+            {{planet_data.Facts | safe}}
+          </div>
         </div>
       </div>
     </div>
