@@ -32,13 +32,13 @@ var chosenYAxis = "healthcare";
 
 
 
-// function used for updating x-scale var upon click on axis label
-// Step 5: Create the scales for the chart
-// =================================
+//  Create Functions for the x and y scales for the chart
+// ======================================================
 function xScale(stateData, chosenXAxis) {
 
+  var minX = d3.min(stateData, d => d[chosenXAxis])
   var xLinearScale = d3.scaleLinear()
-    .domain([8.5, d3.max(stateData, d => d[chosenXAxis])])
+    .domain([minX-1, d3.max(stateData, d => d[chosenXAxis])])
     .range([0, width]);
 
   return xLinearScale;
@@ -55,7 +55,8 @@ function yScale(stateData, chosenYAxis) {
 
 }
 
-// function used for updating xAxis var upon click on axis label
+// Funtion to update xAxis var upon click on axis label
+//=====================================================
 function renderAxes(newXScale, xAxis) {
   var bottomAxis = d3.axisBottom(newXScale);
 
@@ -71,11 +72,12 @@ function renderAxes(newXScale, xAxis) {
   //   .call(bottomAxis);
 }
 
-// function used for updating circles group with a transition to
-// new circles
-function renderCircles(circlesGroup, newXScale, newYScale, chosenXaxis) {
+// Function used for updating plot of circles group with a transition
+// as per the new axis
+//=====================================================================
+function renderCircles(circlesGroup, newXScale, newYScale, chosenXAxis) {
 
-  circlesGroup.transition()
+  circlesGroup.selectAll("circle").transition()
     .duration(1000)
     .attr("cx", d => newXScale(d[chosenXAxis]))
     .attr("cy", d => newYScale(d[chosenYAxis]));
@@ -83,7 +85,10 @@ function renderCircles(circlesGroup, newXScale, newYScale, chosenXaxis) {
   return circlesGroup;
 }
 
-function renderCircleText(circleText, newXScale, newYScale, chosenXaxis) {
+// Function used for updating plot of text on circles with a transition
+// as per the new axis
+//=====================================================================
+function renderCircleText(circleText, newXScale, newYScale, chosenXAxis) {
 
   circleText.transition()
     .duration(1000)
@@ -95,10 +100,10 @@ function renderCircleText(circleText, newXScale, newYScale, chosenXaxis) {
 }
 
 // Step 3:
-// Import data from the donuts.csv file
+// Import data from the data.csv file
 // =================================
 d3.csv("assets/data/data.csv").then(function (stateData) {
-  // Step 4: Parse the data
+  // Step 3: Parse the data
   // Format the data and convert to numerical and date values
   // =================================
   // Format the data
@@ -112,18 +117,19 @@ d3.csv("assets/data/data.csv").then(function (stateData) {
     data.income = +data.income;
   });
 
-  // xLinearScale function above csv import
+  // Step 4: Obtaining the scales
+  //=============================
   var xLinearScale = xScale(stateData, chosenXAxis);
 
   var yLinearScale = yScale(stateData, chosenYAxis);
 
 
-  // Step 7: Create the axes
+  // Step 5: Create the axes
   // =================================
   var bottomAxis = d3.axisBottom(xLinearScale);
   var leftAxis = d3.axisLeft(yLinearScale);
 
-  // Step 4: Append Axes to the chart
+  // Step 6: Append Axes to the chart
   // ==============================
   var xAxis = chartGroup.append("g")
     .attr("transform", `translate(0, ${height})`)
@@ -132,14 +138,11 @@ d3.csv("assets/data/data.csv").then(function (stateData) {
   chartGroup.append("g")
     .call(leftAxis);
 
-  // Step 5: Create Circles
+  // Step 6: Create Circles
   // ==============================
-  var circlesGroup = chartGroup.selectAll("blah")
+  var circlesGroup = chartGroup.selectAll("circle")
     .data(stateData)
     .enter()
-
-
-  circlesGroup
     .append("circle")
     .attr("cx", d => xLinearScale(d[chosenXAxis]))
     .attr("cy", d => yLinearScale(d[chosenYAxis]))
@@ -148,9 +151,11 @@ d3.csv("assets/data/data.csv").then(function (stateData) {
     .attr("opacity", ".5")
 
 
-  //  circlesGroup.append("text").text(function (d) { return d.abbr; });
+  //  circlesGroup.append("text").text(function (d) { return d.abbr; }); //did not work
 
   //Resources -- https://stackoverflow.com/questions/26955267/adding-text-to-a-circle-in-d3
+  //Step 7 : Adding Text on the circles.
+  //====================================
   var circleText = chartGroup.selectAll()
     .data(stateData)
     .enter()
@@ -165,6 +170,7 @@ d3.csv("assets/data/data.csv").then(function (stateData) {
 
 
   // Create group for  2 x- axis labels
+  //====================================
   var xlabelsGroup = chartGroup.append("g")
     .attr("transform", `translate(${width / 2}, ${height + 20})`);
 
@@ -204,7 +210,7 @@ d3.csv("assets/data/data.csv").then(function (stateData) {
 
         // console.log(chosenXAxis)
 
-        // functions here found above csv import
+       
         // updates x scale for new data
         xLinearScale = xScale(stateData, chosenXAxis);
 
