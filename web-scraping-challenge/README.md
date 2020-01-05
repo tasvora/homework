@@ -44,4 +44,4 @@ Flask application is used to make the routes and also gives an option on the hom
     * Flask-PyMongo==2.3.0
 
 
-![Screenshot_Mars_Data](images/Screenshot_Mars_Data.png)
+![Screenshot_Mars_Data](images/Screenshot_Mars_Data.jpg)
