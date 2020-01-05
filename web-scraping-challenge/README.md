@@ -1,5 +1,3 @@
-![DashboardImage](images/DashboardImage.png)
-
 # Mission to Mars
 
 
